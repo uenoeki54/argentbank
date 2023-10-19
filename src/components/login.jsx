@@ -6,11 +6,11 @@ import { login } from './AuthSlice';
 
 function Login() {
   const [form, setForm] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
-  const { username, password } = form;
+  const { email, password } = form;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ function Login() {
     e.preventDefault();
 
     const userData = {
-      username,
+      email,
       password,
     };
     console.log(userData);
@@ -51,12 +51,12 @@ function Login() {
         <h1>Sign In</h1>
         <form onSubmit={onSubmit}>
           <div className="input-wrapper">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Email</label>
             <input
               type="email"
               id="form-username"
-              name="username"
-              value={form.username}
+              name="email"
+              value={form.email}
               onChange={onChange}
             />
           </div>
