@@ -31,6 +31,7 @@ function Login() {
       username,
       password,
     };
+    console.log(userData);
     dispatch(login(userData))
       .unwrap()
       .then((user) => {
@@ -44,39 +45,42 @@ function Login() {
     return <h2>Loading...</h2>;
   }
   return (
-    <main class="main bg-dark">
-      <section class="sign-in-content">
-        <i class="fa fa-user-circle sign-in-icon"></i>
+    <main className="main bg-dark">
+      <section className="sign-in-content">
+        <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
         <form onSubmit={onSubmit}>
-          <div class="input-wrapper">
-            <label for="username">Username</label>
+          <div className="input-wrapper">
+            <label htmlFor="username">Username</label>
             <input
-              type="text"
-              id="username"
-              value={username}
+              type="email"
+              id="form-username"
+              name="username"
+              value={form.username}
               onChange={onChange}
             />
           </div>
-          <div class="input-wrapper">
-            <label for="password">Password</label>
+          <div className="input-wrapper">
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
-              value={password}
+              name="password"
+              value={form.password}
               onChange={onChange}
             />
           </div>
-          <div class="input-remember">
-            <input type="checkbox" id="remember-me" />
-            <label for="remember-me">Remember me</label>
+          <div className="input-remember">
+            <input
+              type="checkbox"
+              id="remember-me"
+              onChange={onChange}
+              checked={form.rememberMe}
+            />
+            <label htmlFor="remember-me">Remember me</label>
           </div>
 
-          <a href="./user.html" class="sign-in-button">
-            asdASDASD
-          </a>
-
-          <button class="sign-in-button">Sign In</button>
+          <button className="sign-in-button">Sign In</button>
         </form>
       </section>
     </main>
