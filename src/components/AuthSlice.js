@@ -38,6 +38,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 
 export const logout = createAction('auth/logout', () => {
   authService.logout();
+  setData('null');
   return {};
 });
 

@@ -36,11 +36,12 @@ function Login() {
     dispatch(login(userData))
       .unwrap()
       .then((pommechipe) => {
-        console.log(
-          `La valeur de la reponse, aussi appelle dans le code pommechipe est ${pommechipe.message}`
-        );
-        toast.success(`${userData.email} signed in succesfully`);
-
+        // console.log(
+        //   `La valeur de la reponse, aussi appelle dans le code pommechipe est ${pommechipe.message}`
+        // );
+        // toast.success(`${userData.email} signed in succesfully`);
+        // toast.success(pommechipe.message);
+        toast.success(`${userData.email}`);
         navigate('/user');
       })
 

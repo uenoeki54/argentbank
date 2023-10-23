@@ -10,10 +10,15 @@ const login = async (userData) => {
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
     console.log(localStorage.user);
-    // const token = localStorage.getItem('token');
-    // console.log(token);
   }
   return response.data;
+};
+
+// Get user data
+const getUser = () => {
+  const token = localStorage.getItem('token');
+  console.log('token est ci-dessous');
+  console.log(token);
 };
 
 // Logout user
@@ -22,6 +27,7 @@ const logout = () => localStorage.removeItem('user');
 const authService = {
   logout,
   login,
+  getUser,
 };
 
 export default authService;
