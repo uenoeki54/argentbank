@@ -4,12 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from './AuthSlice';
 
-function Login() {
+function Logout() {
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
-  //
 
   const { email, password } = form;
 
@@ -19,8 +18,8 @@ function Login() {
   const { isLoading } = useSelector((state) => state.auth);
 
   const onChange = (e) => {
-    setForm((prevForm) => ({
-      ...prevForm,
+    setForm((prevState) => ({
+      ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
@@ -32,33 +31,15 @@ function Login() {
       email,
       password,
     };
-
+    console.log(userData);
     dispatch(login(userData))
       .unwrap()
-      .then((pommechipe) => {
-        console.log(
-          `La valeur de la reponse, aussi appelle dans le code pommechipe est ${pommechipe.message}`
-        );
-        toast.success(`${userData.email} signed in succesfully`);
-
+      .then((user) => {
+        toast.success(`Logged in as ${user.name}`);
         navigate('/user');
       })
-
       .catch(toast.error);
   };
-
-  // fetch('http://localhost:3001/api/v1/user/login', {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     email: 'tony@stark.com',
-  //     password: 'password123',
-  //   }),
-  //   headers: {
-  //     'Content-type': 'application/json',
-  //   },
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => console.log(data.body.token));
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -70,14 +51,13 @@ function Login() {
         <h1>Sign In</h1>
         <form onSubmit={onSubmit}>
           <div className="input-wrapper">
+            <label htmlFor="username">Email</label>
             <input
               type="email"
-              id="email"
+              id="form-username"
               name="email"
-              value={email}
+              value={form.email}
               onChange={onChange}
-              placeholder="Enter your email"
-              required
             />
           </div>
           <div className="input-wrapper">
@@ -86,10 +66,8 @@ function Login() {
               type="password"
               id="password"
               name="password"
-              value={password}
+              value={form.password}
               onChange={onChange}
-              placeholder="Enter password"
-              required
             />
           </div>
           <div className="input-remember">
@@ -109,4 +87,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Logout;

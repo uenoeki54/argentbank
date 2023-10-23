@@ -9,6 +9,9 @@ const login = async (userData) => {
 
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
+    console.log(localStorage.user);
+    // const token = localStorage.getItem('token');
+    // console.log(token);
   }
   return response.data;
 };
