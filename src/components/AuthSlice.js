@@ -10,6 +10,7 @@ const user = JSON.parse(localStorage.getItem('user'));
 // No need for isError or message as we can catch the AsyncThunkAction rejection
 const initialState = {
   user: user ? user : null,
+  data: data ? data : null,
   isLoading: false,
 };
 
@@ -33,6 +34,18 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
     return thunkAPI.rejectWithValue(extractErrorMessage(error));
   }
 });
+
+// Fetch user
+export const fetchutil = createAsyncThunk(
+  'auth/fetchutil',
+  async (data, thunkAPI) => {
+    try {
+      return await authService.fetchutil(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(extractErrorMessage(error));
+    }
+  }
+);
 
 // Logout user
 
