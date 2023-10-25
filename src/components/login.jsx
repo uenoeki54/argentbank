@@ -1,82 +1,59 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { login } from './AuthSlice';
 
-function Login() {
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-  });
-  //
+// USE DISPATCH IS TO DISPATCH AN ACTION AND USESELECTOR IS TOSELECT FROM OUR GLOBAL STATE
 
-  const { email, password } = form;
+import { useDispatch, useSelector } from 'react-redux';
+import { useLoginMutation } from '../slices/usersApiSlice';
+import { setCredentials } from '../slices/authSlice';
 
-  const dispatch = useDispatch();
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { isLoading } = useSelector((state) => state.auth);
+  const [login, { isLoading }] = useLoginMutation();
 
-  const onChange = (e) => {
-    setForm((prevForm) => ({
-      ...prevForm,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const { userInfo } = useSelector((state) => state.auth);
 
-  const onSubmit = (e) => {
+  // WE WANT TO REDIRECT TO TEH HOMEPAGE IF WE ARE ALREADY LOGGED IN
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/');
+    }
+  }, [navigate, userInfo]);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-
-    const userData = {
-      email,
-      password,
-    };
-
-    dispatch(login(userData))
-      .unwrap()
-      .then((pommechipe) => {
-        // console.log(
-        //   `La valeur de la reponse, aussi appelle dans le code pommechipe est ${pommechipe.message}`
-        // );
-        // toast.success(`${userData.email} signed in succesfully`);
-        // toast.success(pommechipe.message);
-        toast.success(`${userData.email}`);
-        navigate('/user');
-      })
-
-      .catch(toast.error);
+    try {
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      toast.success(`message:${res.message}`);
+      navigate('/');
+    } catch (err) {
+      console.log('il ya une erreur non repertoriée');
+      toast.error(err?.data?.message || err?.error);
+    }
   };
 
-  // fetch('http://localhost:3001/api/v1/user/login', {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     email: 'tony@stark.com',
-  //     password: 'password123',
-  //   }),
-  //   headers: {
-  //     'Content-type': 'application/json',
-  //   },
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => console.log(data.body.token));
-
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={submitHandler}>
           <div className="input-wrapper">
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
               name="email"
               value={email}
-              onChange={onChange}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
             />
@@ -88,18 +65,13 @@ function Login() {
               id="password"
               name="password"
               value={password}
-              onChange={onChange}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter password"
               required
             />
           </div>
           <div className="input-remember">
-            <input
-              type="checkbox"
-              id="remember-me"
-              onChange={onChange}
-              checked={form.rememberMe}
-            />
+            <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
 
@@ -108,6 +80,6 @@ function Login() {
       </section>
     </main>
   );
-}
+};
 
 export default Login;
