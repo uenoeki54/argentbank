@@ -6,7 +6,9 @@ import { toast } from 'react-toastify';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
+import { useFetchuserMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
+import { setUser } from '../slices/authSlice';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,15 +18,28 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const [login, { isLoading }] = useLoginMutation();
+  const fetchuser = useFetchuserMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
 
   // WE WANT TO REDIRECT TO TEH HOMEPAGE IF WE ARE ALREADY LOGGED IN
 
   useEffect(() => {
-    if (userInfo) {
-      navigate('/');
-    }
+    if (userInfo)
+      async () => {
+        try {
+          const res = await fetchuser(token).unwrap();
+          dispatch(setUser({ ...res }));
+          console.log('ca a lair de marcher a peu pres');
+          navigate('/user');
+        } catch (err) {
+          console.log(
+            'il ya une erreur non repertoriée dans le fetch des donnees user'
+          );
+          toast.error(err?.data?.message || err?.error);
+        }
+      };
   }, [navigate, userInfo]);
 
   const submitHandler = async (e) => {
@@ -33,7 +48,7 @@ const Login = () => {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       toast.success(`message:${res.message}`);
-      navigate('/');
+      navigate('/user');
     } catch (err) {
       console.log('il ya une erreur non repertoriée');
       toast.error(err?.data?.message || err?.error);

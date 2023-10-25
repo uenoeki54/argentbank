@@ -2,9 +2,20 @@ import logo from '../assets/img/argentBankLogo.png';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { removeCredentials } from '../slices/authSlice';
 
 function Header() {
   const { userInfo } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    dispatch(removeCredentials());
+    navigate('/');
+  };
+
   return (
     <nav className="main-nav">
       <Link to="/" className="main-nav-logo">
@@ -23,7 +34,7 @@ function Header() {
       </Link>
 
       {userInfo ? (
-        <Link to="/" className="main-nav-item">
+        <Link to="/" onClick={logoutHandler} className="main-nav-item">
           <i className="fa fa-user-circle"></i>
           Sign Out
         </Link>

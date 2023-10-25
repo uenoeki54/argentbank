@@ -1,15 +1,24 @@
 // APISLICE EST COMME UN PARENT SLICE POUR LES AUTRES
 
 import { apiSlice } from './apiSlice';
-const USER_URL = 'api/v1/user/login';
+const USER_URL = 'api/v1/user';
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (data) => ({
-        url: `${USER_URL}`,
+        url: `${USER_URL}/login`,
         method: 'POST',
         body: data,
+      }),
+    }),
+    fetchuser: builder.mutation({
+      query: (token) => ({
+        url: `${USER_URL}/profile`,
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }),
     }),
   }),
@@ -17,4 +26,4 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 
 // COMME C EST UNE MUTATION ON TAPE "USE" SUIVI DU NOM DE LA MUTATION
 
-export const { useLoginMutation } = usersApiSlice;
+export const { useLoginMutation, useFetchuserMutation } = usersApiSlice;
