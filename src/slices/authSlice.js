@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useState } from 'react';
+
 const initialState = {
   userInfo: localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
@@ -39,6 +39,8 @@ const authSlice = createSlice({
     removeCredentials: (state, action) => {
       state.userInfo = null;
       localStorage.removeItem('userInfo');
+      state.fetchInfo = null;
+      localStorage.removeItem('fetchInfo');
     },
   },
 });

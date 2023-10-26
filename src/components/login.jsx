@@ -18,28 +18,38 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const [login, { isLoading }] = useLoginMutation();
-  const fetchuser = useFetchuserMutation();
+  const [fetchuser] = useFetchuserMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
-  const { token } = useSelector((state) => state.auth);
+  // const [token, setToken] = useState('pasencore');
+  // const { token } = useSelector((state) => state.auth);
 
+  const fetchTry = async () => {
+    const retrievedInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if (retrievedInfo) {
+      console.log(retrievedInfo);
+      console.log(retrievedInfo.body.token);
+      const token = retrievedInfo.body.token;
+
+      try {
+        const res = await fetchuser(token).unwrap();
+        dispatch(setUser({ ...res }));
+        console.log('ca a lair de marcher a peu pres');
+        navigate('/user');
+      } catch (err) {
+        console.log(
+          'il ya une erreur non repertoriée dans le fetch des donnees user'
+        );
+        toast.error(err?.data?.message || err?.error);
+      }
+    }
+  };
   // WE WANT TO REDIRECT TO TEH HOMEPAGE IF WE ARE ALREADY LOGGED IN
-
   useEffect(() => {
-    if (userInfo)
-      async () => {
-        try {
-          const res = await fetchuser(token).unwrap();
-          dispatch(setUser({ ...res }));
-          console.log('ca a lair de marcher a peu pres');
-          navigate('/user');
-        } catch (err) {
-          console.log(
-            'il ya une erreur non repertoriée dans le fetch des donnees user'
-          );
-          toast.error(err?.data?.message || err?.error);
-        }
-      };
+    if (userInfo) {
+      fetchTry();
+      navigate('/user');
+    }
   }, [navigate, userInfo]);
 
   const submitHandler = async (e) => {

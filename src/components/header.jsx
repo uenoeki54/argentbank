@@ -7,6 +7,7 @@ import { removeCredentials } from '../slices/authSlice';
 
 function Header() {
   const { userInfo } = useSelector((state) => state.auth);
+  const { fetchInfo } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,8 +30,9 @@ function Header() {
 
       <Link to="/user" className="main-nav-item">
         <i className="fa fa-user-circle"></i>
-        {userInfo && console.log(userInfo)}
-        {userInfo ? userInfo.status : 'suck my dick'}
+
+        {fetchInfo &&
+          `ce filochard de ${fetchInfo.body.firstName} ${fetchInfo.body.lastName} est connecté`}
       </Link>
 
       {userInfo ? (
