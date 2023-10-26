@@ -6,6 +6,7 @@ import Footer from './components/footer';
 import Login from './components/login';
 import Register from './components/register';
 import User from './components/user';
+import Edit from './components/edit';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/user" element={<User />} />
+          <Route path="/edit" element={<Edit />} />
         </Routes>
 
         <Footer />

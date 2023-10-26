@@ -22,7 +22,9 @@ function User() {
           {fetchInfo &&
             `${fetchInfo.body.firstName} ${fetchInfo.body.lastName} !`}
         </h1>
-        <button className="edit-button">Edit Name</button>
+        <Link className="edit-button" to="/edit">
+          Edit Name
+        </Link>
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">

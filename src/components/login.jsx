@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
 // USE DISPATCH IS TO DISPATCH AN ACTION AND USESELECTOR IS TOSELECT FROM OUR GLOBAL STATE
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -100,7 +99,9 @@ const Login = () => {
             <label htmlFor="remember-me">Remember me</label>
           </div>
 
-          <button className="sign-in-button">Sign In</button>
+          <button className="sign-in-button">
+            {isLoading ? 'LOADING' : 'Sign In'}
+          </button>
         </form>
       </section>
     </main>

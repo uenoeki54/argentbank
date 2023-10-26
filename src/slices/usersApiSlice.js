@@ -21,9 +21,20 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    update: builder.mutation({
+      query: ({ token, usernom }) => ({
+        url: `${USER_URL}/profile`,
+        method: 'PUT',
+        body: { userName: usernom },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
   }),
 });
 
 // COMME C EST UNE MUTATION ON TAPE "USE" SUIVI DU NOM DE LA MUTATION
 
-export const { useLoginMutation, useFetchuserMutation } = usersApiSlice;
+export const { useLoginMutation, useFetchuserMutation, useUpdateMutation } =
+  usersApiSlice;
