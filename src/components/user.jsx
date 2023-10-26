@@ -1,6 +1,29 @@
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useEffect } from 'react';
+
 function User() {
+  const { userInfo } = useSelector((state) => state.auth);
+  const { fetchInfo } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userInfo) {
+      toast.error('You are not logged in yet');
+      navigate('/login');
+    }
+  }, [navigate]);
   return (
     <main>
+      <div className="header">
+        <h1>
+          Welcome back
+          <br />
+          {fetchInfo &&
+            `${fetchInfo.body.firstName} ${fetchInfo.body.lastName} !`}
+        </h1>
+        <button className="edit-button">Edit Name</button>
+      </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">
