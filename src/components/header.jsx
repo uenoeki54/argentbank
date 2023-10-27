@@ -32,7 +32,7 @@ function Header() {
         <i className="fa fa-user-circle"></i>
 
         {fetchInfo &&
-          `ce filochard de ${fetchInfo.body.firstName} ${fetchInfo.body.lastName} est connecté`}
+          `${fetchInfo.body.firstName} ${fetchInfo.body.lastName} aka ${fetchInfo.body.userName} `}
       </Link>
 
       {userInfo ? (

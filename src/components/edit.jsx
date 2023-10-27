@@ -1,12 +1,16 @@
 import { useUpdateMutation } from '../slices/usersApiSlice';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { setUser } from '../slices/authSlice';
 
 const Edit = () => {
   const [usernom, setUsername] = useState('nonamed');
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [edituser, { isLoading }] = useUpdateMutation();
   const { token } = useSelector((state) => state.auth);
 
@@ -15,6 +19,9 @@ const Edit = () => {
     try {
       console.log(token);
       const res = await edituser({ token, usernom }).unwrap();
+      //   ON APPELLE ICI AUSSI COMME DANS LA PAGE LOGIN LA FONCTION SETUSER POUR QUE LES INFOS PROFILES
+      //   SOIENT UPDATEES DANS LE STATE ET LE LOCALSTORAGE AVEC LE NOUVEAU USERNAME
+      dispatch(setUser({ ...res }));
       toast.success(`new username set to:${res.body.userName}`);
       navigate('/user');
       console.log(res.message);
