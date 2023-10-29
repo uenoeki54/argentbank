@@ -29,10 +29,10 @@ function Header() {
       <h1 className="sr-only">Argent Bank</h1>
 
       <Link to="/user" className="main-nav-item">
-        <i className="fa fa-user-circle"></i>
+        {fetchInfo && <i className="fa fa-user-circle"></i>}
 
         {fetchInfo &&
-          `${fetchInfo.body.firstName} ${fetchInfo.body.lastName} aka ${fetchInfo.body.userName} `}
+          ` ${fetchInfo.body.firstName} ${fetchInfo.body.lastName} aka ${fetchInfo.body.userName} `}
       </Link>
 
       {userInfo ? (

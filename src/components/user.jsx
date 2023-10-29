@@ -9,12 +9,12 @@ function User() {
   const { userInfo } = useSelector((state) => state.auth);
   const { fetchInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  const [usernom, setUsername] = useState('nonamed');
+  const [usernom, setUsername] = useState('');
   const dispatch = useDispatch();
   const [edituser, { isLoading }] = useUpdateMutation();
   const { token } = useSelector((state) => state.auth);
   //  ON FAIT UN STATE POUR LE MENU CONTEXTUEL
-  const [open, setOpen] = useState('false');
+  const [open, setOpen] = useState('');
 
   useEffect(() => {
     if (!userInfo) {
@@ -77,6 +77,26 @@ function User() {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
               required
+            />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="usernom">First name</label>
+            <input
+              type="text"
+              id="firstname"
+              name="firstname"
+              value={fetchInfo && `${fetchInfo.body.firstName}`}
+              disabled="disabled"
+            />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="usernom">Last name</label>
+            <input
+              type="text"
+              id="lastname"
+              name="lastname"
+              value={fetchInfo && `${fetchInfo.body.lastName}`}
+              disabled="disabled"
             />
           </div>
 
