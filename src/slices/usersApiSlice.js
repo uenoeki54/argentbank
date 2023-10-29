@@ -22,10 +22,10 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     update: builder.mutation({
-      query: ({ token, pommechipe }) => ({
+      query: ({ token, usernom }) => ({
         url: `${USER_URL}/profile`,
         method: 'PUT',
-        body: { userName: pommechipe },
+        body: { userName: usernom },
         headers: {
           Authorization: `Bearer ${token}`,
         },

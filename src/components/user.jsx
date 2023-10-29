@@ -9,12 +9,12 @@ function User() {
   const { userInfo } = useSelector((state) => state.auth);
   const { fetchInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  const [newusernam, setUsername] = useState('');
+  const [usernom, setUsername] = useState('nonamed');
   const dispatch = useDispatch();
   const [edituser, { isLoading }] = useUpdateMutation();
   const { token } = useSelector((state) => state.auth);
   //  ON FAIT UN STATE POUR LE MENU CONTEXTUEL
-  const [open, setOpen] = useState();
+  const [open, setOpen] = useState('false');
 
   useEffect(() => {
     if (!userInfo) {
@@ -27,13 +27,12 @@ function User() {
     e.preventDefault();
     try {
       console.log(token);
-      const res = await edituser({ token, newusernam }).unwrap();
+      const res = await edituser({ token, usernom }).unwrap();
       //   ON APPELLE ICI AUSSI COMME DANS LA PAGE LOGIN LA FONCTION SETUSER POUR QUE LES INFOS PROFILES
       //   SOIENT UPDATEES DANS LE STATE ET LE LOCALSTORAGE AVEC LE NOUVEAU USERNAME
       dispatch(setUser({ ...res }));
       toast.success(`new username set to:${res.body.userName}`);
-      console.log(res.message);
-      console.log(res.body.userName);
+      setOpen(!open);
     } catch (err) {
       console.log('il ya une erreur non repertoriée');
       toast.error(err?.data?.message || err?.error);
@@ -42,7 +41,7 @@ function User() {
 
   return (
     <main>
-      <div className="header">
+      <div className={open ? 'hide ' : ' header  display'}>
         <h1>
           Welcome back
           <br />
@@ -63,14 +62,18 @@ function User() {
       <section
         className={open ? 'sign-in-content display' : ' sign-in-content hide'}
       >
+        <h1>
+          Edit user name
+          <br />
+        </h1>
         <form onSubmit={submitHandler}>
           <div className="input-wrapper">
-            <label htmlFor="username">New Username</label>
+            <label htmlFor="usernom">New Username</label>
             <input
               type="text"
-              id="username"
-              name="username"
-              value={newusernam}
+              id="usernom"
+              name="usernom"
+              value={usernom}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
               required
