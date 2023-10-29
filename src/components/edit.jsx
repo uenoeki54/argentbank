@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { setUser } from '../slices/authSlice';
 
 const Edit = () => {
-  const [usernom, setUsername] = useState('nonamed');
+  const [pommechipe, setUsername] = useState('nonamed');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Edit = () => {
     e.preventDefault();
     try {
       console.log(token);
-      const res = await edituser({ token, usernom }).unwrap();
+      const res = await edituser({ token, fraises }).unwrap();
       //   ON APPELLE ICI AUSSI COMME DANS LA PAGE LOGIN LA FONCTION SETUSER POUR QUE LES INFOS PROFILES
       //   SOIENT UPDATEES DANS LE STATE ET LE LOCALSTORAGE AVEC LE NOUVEAU USERNAME
       dispatch(setUser({ ...res }));
@@ -39,12 +39,12 @@ const Edit = () => {
         <h1>Change username</h1>
         <form onSubmit={submitHandler}>
           <div className="input-wrapper">
-            <label htmlFor="usernom">New Username</label>
+            <label htmlFor="fraises">New Username</label>
             <input
               type="text"
-              id="usernom"
-              name="usernom"
-              value={usernom}
+              id="fraises"
+              name="fraises"
+              value={fraises}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
               required

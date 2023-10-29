@@ -9,12 +9,12 @@ function User() {
   const { userInfo } = useSelector((state) => state.auth);
   const { fetchInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  const [usernom, setUsername] = useState('nonamed');
+  const [newusernam, setUsername] = useState('');
   const dispatch = useDispatch();
   const [edituser, { isLoading }] = useUpdateMutation();
   const { token } = useSelector((state) => state.auth);
   //  ON FAIT UN STATE POUR LE MENU CONTEXTUEL
-  const [open, setOpen] = useState('false');
+  const [open, setOpen] = useState();
 
   useEffect(() => {
     if (!userInfo) {
@@ -27,7 +27,7 @@ function User() {
     e.preventDefault();
     try {
       console.log(token);
-      const res = await edituser({ token, usernom }).unwrap();
+      const res = await edituser({ token, newusernam }).unwrap();
       //   ON APPELLE ICI AUSSI COMME DANS LA PAGE LOGIN LA FONCTION SETUSER POUR QUE LES INFOS PROFILES
       //   SOIENT UPDATEES DANS LE STATE ET LE LOCALSTORAGE AVEC LE NOUVEAU USERNAME
       dispatch(setUser({ ...res }));
@@ -65,12 +65,12 @@ function User() {
       >
         <form onSubmit={submitHandler}>
           <div className="input-wrapper">
-            <label htmlFor="usernom">New Username</label>
+            <label htmlFor="username">New Username</label>
             <input
               type="text"
-              id="usernom"
-              name="usernom"
-              value={usernom}
+              id="username"
+              name="username"
+              value={newusernam}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
               required
