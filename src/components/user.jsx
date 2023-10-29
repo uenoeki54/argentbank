@@ -63,12 +63,12 @@ function User() {
         className={open ? 'sign-in-content display' : ' sign-in-content hide'}
       >
         <h1>
-          Edit user name
+          Edit user info
           <br />
         </h1>
         <form onSubmit={submitHandler}>
-          <div className="input-wrapper">
-            <label htmlFor="usernom">New Username</label>
+          <div className="updateuser-wrapper">
+            <label htmlFor="usernom">User name:</label>
             <input
               type="text"
               id="usernom"
@@ -79,8 +79,8 @@ function User() {
               required
             />
           </div>
-          <div className="input-wrapper">
-            <label htmlFor="usernom">First name</label>
+          <div className="updateuser-wrapper">
+            <label htmlFor="usernom">First name:</label>
             <input
               type="text"
               id="firstname"
@@ -89,8 +89,8 @@ function User() {
               disabled="disabled"
             />
           </div>
-          <div className="input-wrapper">
-            <label htmlFor="usernom">Last name</label>
+          <div className="updateuser-wrapper">
+            <label htmlFor="usernom">Last name:</label>
             <input
               type="text"
               id="lastname"
@@ -99,10 +99,19 @@ function User() {
               disabled="disabled"
             />
           </div>
-
-          <button className="sign-in-button">
-            {isLoading ? 'LOADING' : 'Choose'}
-          </button>
+          <div className="edit-buttons">
+            <button className="sign-in-button">
+              {isLoading ? 'LOADING' : 'Save'}
+            </button>
+            <Link
+              className="sign-in-button"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              Cancel
+            </Link>
+          </div>
         </form>
       </section>
 

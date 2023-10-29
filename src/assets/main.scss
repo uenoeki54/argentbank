@@ -75,7 +75,7 @@ body {
 }
 
 .hero {
-  background-image: url("./img/bank-tree.jpeg");
+  background-image: url('./img/bank-tree.jpeg');
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -109,6 +109,7 @@ body {
     height: 400px;
     background-position: 0% 33%;
   }
+
   .hero-content {
     position: absolute;
     top: 50px;
@@ -116,13 +117,16 @@ body {
     width: 300px;
     margin: 2rem;
   }
+
   .hero-content .subtitle {
     font-size: 1.5rem;
   }
+
   .hero-content .text {
     font-size: 1.2rem;
   }
 }
+
 .features {
   display: flex;
   flex-direction: column;
@@ -133,6 +137,7 @@ body {
     flex-direction: row;
   }
 }
+
 .feature-icon {
   width: 100px;
   border: 10px solid #00bc77;
@@ -171,12 +176,14 @@ body {
   margin: 0 auto;
   margin-top: 0rem;
   padding: 2rem;
-}
-.sign-in-content label {
-  margin-right: 5px;
-}
-.sign-in-content input {
-  border-radius: 5px;
+
+  label {
+    margin-right: 5px;
+  }
+
+  input {
+    border-radius: 5px;
+  }
 }
 
 .display {
@@ -206,16 +213,14 @@ body {
   text-align: left;
   margin-bottom: 1rem;
 }
-
 .updateuser-wrapper {
   display: flex;
   flex-direction: row;
   width: 100%;
   text-align: left;
   margin-bottom: 1rem;
-}
-@media (max-width: 1024px) {
-  .updateuser-wrapper {
+
+  @media (max-width: 1024px) {
     flex-direction: column;
   }
 }
@@ -234,21 +239,22 @@ input {
   flex-direction: row;
   justify-content: center;
   gap: 10px;
-}
-.edit-buttons button,
-.edit-buttons a {
-  width: 150px;
-  height: 40px;
-  text-decoration: none;
-  padding: 8px;
-  border-radius: 5px;
-  border: 0 none;
-}
-.edit-buttons a:hover {
-  box-shadow: 1px 1px 2px black;
-}
-.edit-buttons button:hover {
-  box-shadow: 1px 1px 2px black;
+
+  button,
+  a {
+    width: 150px;
+    height: 40px;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 5px;
+    border: 0 none;
+  }
+  a:hover {
+    box-shadow: 1px 1px 2px black;
+  }
+  button:hover {
+    box-shadow: 1px 1px 2px black;
+  }
 }
 
 .footer {
@@ -329,10 +335,12 @@ input {
   .account {
     flex-direction: row;
   }
+
   .account-content-wrapper.cta {
     flex: 0;
   }
+
   .transaction-button {
     width: 200px;
   }
-}/*# sourceMappingURL=main.css.map */
+}
