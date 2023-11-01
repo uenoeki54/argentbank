@@ -9,7 +9,7 @@ function User() {
   const { userInfo } = useSelector((state) => state.auth);
   const { fetchInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  const [newusername, setUsername] = useState('');
   const dispatch = useDispatch();
   const [edituser, { isLoading }] = useUpdateMutation();
   const { token } = useSelector((state) => state.auth);
@@ -28,7 +28,7 @@ function User() {
     e.preventDefault();
     try {
       console.log(token);
-      const res = await edituser({ token, username }).unwrap();
+      const res = await edituser({ token, newusername }).unwrap();
       //   ON APPELLE ICI AUSSI COMME DANS LA PAGE LOGIN LA FONCTION SETUSER POUR QUE LES INFOS PROFILES
       //   SOIENT UPDATEES DANS LE STATE ET LE LOCALSTORAGE AVEC LE NOUVEAU USERNAME
       dispatch(setUser({ ...res }));
@@ -75,7 +75,7 @@ function User() {
               type="text"
               id="usernom"
               name="usernom"
-              value={username}
+              value={newusername}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
               required
