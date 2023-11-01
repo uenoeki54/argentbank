@@ -9,16 +9,17 @@ function User() {
   const { userInfo } = useSelector((state) => state.auth);
   const { fetchInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  const [usernom, setUsername] = useState('');
+  const [username, setUsername] = useState('');
   const dispatch = useDispatch();
   const [edituser, { isLoading }] = useUpdateMutation();
   const { token } = useSelector((state) => state.auth);
   //  ON FAIT UN STATE POUR LE MENU CONTEXTUEL
   const [open, setOpen] = useState('');
+  const customId = 'custom-id-yes';
 
   useEffect(() => {
     if (!userInfo) {
-      toast.error('You are not logged in yet');
+      toast.error('You are not logged in yet', { toastId: customId });
       navigate('/login');
     }
   }, [navigate]);
@@ -27,11 +28,12 @@ function User() {
     e.preventDefault();
     try {
       console.log(token);
-      const res = await edituser({ token, usernom }).unwrap();
+      const res = await edituser({ token, username }).unwrap();
       //   ON APPELLE ICI AUSSI COMME DANS LA PAGE LOGIN LA FONCTION SETUSER POUR QUE LES INFOS PROFILES
       //   SOIENT UPDATEES DANS LE STATE ET LE LOCALSTORAGE AVEC LE NOUVEAU USERNAME
       dispatch(setUser({ ...res }));
       toast.success(`new username set to:${res.body.userName}`);
+      console.log(res);
       setOpen(!open);
     } catch (err) {
       console.log('il ya une erreur non repertoriée');
@@ -73,7 +75,7 @@ function User() {
               type="text"
               id="usernom"
               name="usernom"
-              value={usernom}
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
               required
