@@ -3,13 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   userInfo: localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
-    : null,
-  token: localStorage.getItem('token')
-    ? JSON.parse(localStorage.getItem('token'))
-    : null,
-  fetchInfo: localStorage.getItem('fetchInfo')
-    ? JSON.parse(localStorage.getItem('fetchInfo'))
-    : null,
+    : '',
+  token: '',
+  fetchInfo: '',
 };
 
 const authSlice = createSlice({
@@ -33,14 +29,14 @@ const authSlice = createSlice({
       //   LE RESULTAT DE L ACTION EST MIS DANS LE LOCAL STORAGE
       localStorage.setItem('fetchInfo', JSON.stringify(action.payload));
     },
-    //     CLEARCREDENTIALS ON APELLE CA LOGOUT POUR L'INSTANT IL Y AURA UN AUTRE LOGOUT DANS  LE USER API SLICE la on va juste
+    //     CLEARCREDENTIALS E la on va
     // effacer du localstorage IL S AGIT DU FRONT END LOGOUT. LE BACK END LOGOUT AURA LIEU DANS LE USER API SLICE
 
     removeCredentials: (state, action) => {
       state.userInfo = null;
       localStorage.removeItem('userInfo');
-      state.fetchInfo = null;
-      state.token = null;
+      state.fetchInfo = '';
+      state.token = '';
       localStorage.removeItem('fetchInfo');
     },
   },
