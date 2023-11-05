@@ -33,17 +33,17 @@ const Login = () => {
       try {
         const res = await fetchuser(token).unwrap();
         dispatch(setUser({ ...res }));
-        console.log('ca a lair de marcher a peu pres');
+        console.log('ca a lair de marcher');
         navigate('/user');
       } catch (err) {
         console.log(
-          'il ya une erreur non repertoriée dans le fetch des donnees user'
+          'il ya une erreur peut etre non repertoriée dans le fetch des donnees user'
         );
         toast.error(err?.data?.message || err?.error);
       }
     }
   };
-  // WE WANT TO REDIRECT TO TEH HOMEPAGE IF WE ARE ALREADY LOGGED IN
+  // WE WANT TO REDIRECT TO THE HOMEPAGE IF WE ARE ALREADY LOGGED IN
   useEffect(() => {
     if (userInfo) {
       fetchTry();
@@ -57,7 +57,7 @@ const Login = () => {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       toast.success(`message:${res.message}`);
-      navigate('/user');
+      // navigate('/user');
     } catch (err) {
       console.log('il ya une erreur non repertoriée');
       toast.error(err?.data?.message || err?.error);

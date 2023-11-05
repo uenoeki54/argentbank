@@ -147,10 +147,12 @@ paths:
         '500':
           description: Internal Server Error
 
-  /transactions/{transactionId}:
+  /user/transactions/{transactionId}:
     delete:
       security:
         - Bearer: []
+      tags:
+        - User Module
       summary: Delete a transaction
       description: Deletes the transaction with the specified ID.
       parameters:
@@ -206,7 +208,7 @@ paths:
       parameters:
         - in: body
           name: body
-          description: Update mote
+          description: Update note
           required: true
           schema:
             $ref: '#/definitions/NoteUpdate'
@@ -302,10 +304,14 @@ definitions:
   CategoryUpdate:
     type: object
     properties:
+      transactionId:
+        type: integer
       category:
         type: string
   NoteUpdate:
     type: object
     properties:
+      transactionId:
+        type: integer
       note:
         type: string
