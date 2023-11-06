@@ -12,7 +12,7 @@ function User() {
   const [newusername, setUsername] = useState('');
   const dispatch = useDispatch();
   const [edituser, { isLoading }] = useUpdateMutation();
-  const { token } = useSelector((state) => state.auth);
+  // const { token } = useSelector((state) => state.auth);
   //  ON FAIT UN STATE POUR LE MENU CONTEXTUEL
   const [open, setOpen] = useState('');
   const customId = 'custom-id-yes';
@@ -26,18 +26,24 @@ function User() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      console.log(token);
-      const res = await edituser({ token, newusername }).unwrap();
-      //   ON APPELLE ICI AUSSI COMME DANS LA PAGE LOGIN LA FONCTION SETUSER POUR QUE LES INFOS PROFILES
-      //   SOIENT UPDATEES DANS LE STATE ET LE LOCALSTORAGE AVEC LE NOUVEAU USERNAME
-      dispatch(setUser({ ...res }));
-      toast.success(`new username set to:${res.body.userName}`);
-      console.log(res);
-      setOpen(!open);
-    } catch (err) {
-      console.log('il ya une erreur non repertoriée');
-      toast.error(err?.data?.message || err?.error);
+    const retrievedInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if (retrievedInfo) {
+      console.log(retrievedInfo);
+      console.log(retrievedInfo.body.token);
+      const token = retrievedInfo.body.token;
+      try {
+        console.log(token);
+        const res = await edituser({ token, newusername }).unwrap();
+        //   ON APPELLE ICI AUSSI COMME DANS LA PAGE LOGIN LA FONCTION SETUSER POUR QUE LES INFOS PROFILES
+        //   SOIENT UPDATEES DANS LE STATE ET LE LOCALSTORAGE AVEC LE NOUVEAU USERNAME
+        dispatch(setUser({ ...res }));
+        toast.success(`new username set to:${res.body.userName}`);
+        console.log(res);
+        setOpen(!open);
+      } catch (err) {
+        console.log('il ya une erreur non repertoriée');
+        toast.error(err?.data?.message || err?.error);
+      }
     }
   };
 

@@ -32,7 +32,7 @@ function Header() {
         {fetchInfo && <i className="fa fa-user-circle"></i>}
 
         {fetchInfo &&
-          ` ${fetchInfo.body.firstName} ${fetchInfo.body.lastName} aka ${fetchInfo.body.userName} `}
+          ` ${fetchInfo.body.firstName} ${fetchInfo.body.lastName} ( ${fetchInfo.body.userName} )`}
       </Link>
 
       {userInfo ? (
