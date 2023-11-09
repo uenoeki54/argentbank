@@ -48,9 +48,9 @@ function User() {
   };
 
   return (
-    <main>
+    <main className="main bg-dark">
       <div className={open ? 'hide ' : ' header  display'}>
-        <h1>
+        <h1 className="white">
           Welcome back
           <br />
           {fetchInfo &&

@@ -107,7 +107,7 @@ paths:
         - Bearer: []
       tags:
         - User Module
-      summary: User Profile API
+      summary: Transaction Creation
       description: API for creating a user transaction
       parameters:
         - in: body
@@ -133,7 +133,7 @@ paths:
         - Bearer: []
       tags:
         - User Module
-      summary: User Profile API
+      summary: Transaction display-all
       description: API for getting all user transactions
       #produces:
       # - application/json
@@ -177,7 +177,7 @@ paths:
         - Bearer: []
       tags:
         - User Module
-      summary: User Profile API
+      summary: Edit transaction category
       description: API for updating a transaction's category parameter
       parameters:
         - in: body
@@ -203,7 +203,7 @@ paths:
         - Bearer: []
       tags:
         - User Module
-      summary: User Profile API
+      summary: Edit transaction note
       description: API for updating a transaction's note parameter
       parameters:
         - in: body

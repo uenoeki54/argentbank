@@ -78,7 +78,7 @@ body {
 }
 
 .hero {
-  background-image: url("./img/bank-tree.jpeg");
+  background-image: url('./img/bank-tree.jpeg');
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -314,6 +314,13 @@ input {
 .header {
   color: black;
   margin-bottom: 2rem;
+  padding-top: 10px;
+}
+
+.white {
+  color: white;
+  margin-top: 0px;
+  line-height: 40px;
 }
 
 .transaction-button {
@@ -338,4 +345,4 @@ input {
   .transaction-button {
     width: 200px;
   }
-}/*# sourceMappingURL=main.css.map */
+} /*# sourceMappingURL=main.css.map */

@@ -27,25 +27,25 @@ function Header() {
         />
       </Link>
       <h1 className="sr-only">Argent Bank</h1>
+      <div className="align-right">
+        <Link to="/user" className="main-nav-item">
+          {fetchInfo && <i className="fa fa-user-circle"></i>}
 
-      <Link to="/user" className="main-nav-item">
-        {fetchInfo && <i className="fa fa-user-circle"></i>}
-
-        {fetchInfo &&
-          ` ${fetchInfo.body.firstName} ${fetchInfo.body.lastName} ( ${fetchInfo.body.userName} )`}
-      </Link>
-
-      {userInfo ? (
-        <Link to="/" onClick={logoutHandler} className="main-nav-item">
-          <i className="fa fa-user-circle"></i>
-          Sign Out
+          {fetchInfo && fetchInfo.body.userName}
         </Link>
-      ) : (
-        <Link to="/login" className="main-nav-item">
-          <i className="fa fa-user-circle"></i>
-          Sign In
-        </Link>
-      )}
+
+        {userInfo ? (
+          <Link to="/" onClick={logoutHandler} className="main-nav-item">
+            <i class="fa fa-sign-out"></i>
+            Sign Out
+          </Link>
+        ) : (
+          <Link to="/login" className="main-nav-item">
+            <i className="fa fa-user-circle"></i>
+            Sign In
+          </Link>
+        )}
+      </div>
     </nav>
   );
 }
