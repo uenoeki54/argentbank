@@ -101,7 +101,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions/create:
+  /user/transactions/create/{accountType}:
     post:
       security:
         - Bearer: []
@@ -115,7 +115,7 @@ paths:
           description: Create Transaction Payload
           required: true
           schema:
-            $ref: '#/definitions/Transaction'
+            $ref: '#/definitions/TransactionCreate'
       #produces:
       # - application/json
       responses:
@@ -127,7 +127,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions:
+  /user/transactions/{accountType}:
     post:
       security:
         - Bearer: []
@@ -147,7 +147,7 @@ paths:
         '500':
           description: Internal Server Error
 
-  /user/transactions/{transactionId}:
+  /user/transactions/{transactionId}/{accountType}:
     delete:
       security:
         - Bearer: []
@@ -159,8 +159,13 @@ paths:
         - name: transactionId
           in: path
           required: true
-          type: string
+          type: integer
           description: The ID of the transaction to delete.
+        - name: accountType
+          in: path
+          required: true
+          type: integer
+          description: The type of the account to delete.
       responses:
         '204':
           description: Transaction deleted successfully
@@ -171,7 +176,7 @@ paths:
         '500':
           description: Internal server error
 
-  /user/transactions/category:
+  /user/transactions/category/{accountType}:
     put:
       security:
         - Bearer: []
@@ -197,7 +202,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions/note:
+  /user/transactions/note/{accountType}:
     put:
       security:
         - Bearer: []
@@ -254,6 +259,26 @@ definitions:
       password:
         type: string
         description: user password
+  TransactionCreate:
+    properties:
+      name:
+        type: string
+        description: The name of the transaction.
+      type:
+        type: string
+        description: The type of transaction.
+      category:
+        type: string
+        description: The category of the transaction.
+      note:
+        type: string
+        description: A note about the transaction.
+      amount:
+        type: number
+        description: The amount of the transaction.
+      date:
+        type: string
+        description: The date of the transaction.
   Transaction:
     properties:
       id:
